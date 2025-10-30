@@ -1,0 +1,22 @@
+name: Example
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  macos:
+    name: "Run"
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: ["ghcr.io/cirruslabs/macos-runner:tahow", "ghcr.io/cirruslabs/macos-runner:sequoia"]
+    runs-on: ["${{ matrix.runner }}"]
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: run
+        run: swift run
